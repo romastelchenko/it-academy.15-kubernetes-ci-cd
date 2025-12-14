@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  generation: 80
+  name: jenkins-by-argo
+  namespace: argocd
+spec:
+  destination:
+    namespace: ci-cd-by-argo
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: jenkins-k8s-by-helm
+    helm:
+      parameters:
+      - name: ingress.host
+        value: jenkins-by-argo.k8s-13.sa
+      - name: jobs.enabled
+        value: "true"
+      - name: nfs.path
+        value: /mnt/IT-Academy/nfs-data/sa2-33-25/romanstelchenko/jenkins-by-argo
+      - name: service.name
+        value: jenkins-by-argo
+      - name: secret.password.value
+        value: AgCqTAovRNA1Jsy3c9vy5uwSmP2+TH4iPO0hBxAR0Mipyr1jI1+yyv5Pb5cjKGPZG5N1dV1V4Zan2gkS0jB/KKqhIiNoWCKnvROB4RIGwakNx04++3SovSSCjAvpUJ2gcJ1ea28pDUgiBHHy7j3pxsA8GlpLsAtbrBJFn91sDZu4iAAoMsU3ZuccxVyIoyf5gkATBYxXuZKxpvSRS6w9poykZou51M4Uhe/4aqC/uMkKBaRAj6YXNo2POvMok72d1utupDvT5YUKk9lrJA5i3CHW5hM5ntX/WLV2q9jNlJB1APK4w7S/8R6VqWdtbCGttlCw3Rl+pUJgD9lQuAtqOLzpkzrx0PhsoWdb7u3N80GgBtCmZYCB7bGZe8bJ3MO9vRNhgMs4IXahD9FF2f+N3Nh+t1WSbYOByWF+/JYP0tEiN8ihCbeSbiO0vueiWIaH4hX4c3hyikQ/J+JHvIbGkWd1gE2UvJrCy+ruE1p9tyCZHYRSuSh1WFGy9Ktplq4pwzN02fe6Qh7W5kGBnm+7KYJwRz7dZH9um/G0u8zRHsDzv6l/FXvSPlNYSrxYKfvNmwgSbM3aZm9VmQUKE/0R8PO8lAFUUXwJVQT+vdCYV/qjMKaCLP94x3DlGV4GdGS6cJdbv/uIgNN89p4QQeII4dF7TouDt0IPilCiIm2yb2OcNNM+w2Yco//e96f4GHSeZmB4XZC8aXM=
+      - name: secret.password.type
+        value: sealed
+      - name: secret.password.name
+        value: jenkins-sealed-secret
+    repoURL: https://romastelchenko.github.io/it-academy.14-kubernetes-application-deployment/
+    targetRevision: 0.5.0
+  syncPolicy:
+    automated:
+      enabled: true
