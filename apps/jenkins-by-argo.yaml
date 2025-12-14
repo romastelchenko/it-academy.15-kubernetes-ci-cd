@@ -1,7 +1,6 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  generation: 80
   name: jenkins-by-argo
   namespace: argocd
 spec:
