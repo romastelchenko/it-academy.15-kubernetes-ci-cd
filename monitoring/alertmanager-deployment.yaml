@@ -28,6 +28,8 @@ spec:
             mountPath: /etc/alertmanager/
           - name: alertmanager-storage-volume
             mountPath: /alertmanager/
+          - name: alertmanager-secrets-volume
+            mountPath: /etc/alertmanager/secrets
       volumes:
         - name: alertmanager-config-volume
           configMap:
@@ -35,3 +37,10 @@ spec:
             name: alertmanager-config
         - name: alertmanager-storage-volume
           emptyDir: {}
+        - name: alertmanager-secrets-volume
+          secret:
+            secretName: alertmanager-slack-webhook-url
+            items:
+              - key: slack_webhook_url
+                path: slack_webhook_url
+
