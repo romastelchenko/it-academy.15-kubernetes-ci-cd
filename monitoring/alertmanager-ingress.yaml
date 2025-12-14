@@ -13,6 +13,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: alertmanager-service
+                name: alertmanager
                 port:
                   number: 8080
