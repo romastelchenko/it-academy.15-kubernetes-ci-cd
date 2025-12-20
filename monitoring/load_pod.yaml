@@ -19,15 +19,15 @@ spec:
         app: loadtest
     spec:
       containers:
-      - name: burn
+      - name: loadtest
         image: busybox:1.36
         command:
           - sh
           - -c
           - |
             while true; do
-              BURST="$(awk 'BEGIN{srand(); printf "%d\n", 5+int(rand()*16)}')"
-              SLEEP="$(awk 'BEGIN{srand(); printf "%d\n", 1+int(rand()*10)}')"
+              BURST="$(awk 'BEGIN{srand(); printf "%d\n", 200+int(rand()*400)}')"
+              SLEEP="$(awk 'BEGIN{srand(); printf "%d\n", 3600+int(rand()*7200)}')"
               echo "burst=${BURST}s sleep=${SLEEP}s"
               end=$(( $(date +%s) + BURST ))
               while [ "$(date +%s)" -lt "$end" ]; do :; done
