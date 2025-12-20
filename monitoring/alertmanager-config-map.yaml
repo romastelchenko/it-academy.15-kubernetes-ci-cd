@@ -10,7 +10,7 @@ data:
 
     route:
       receiver: slack
-      group_by: ["alertname", "namespace"]
+      group_by: ["alertname", "namespace","pod","container"]
       group_wait: 10s
       repeat_interval: 30m
 

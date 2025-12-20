@@ -47,13 +47,13 @@ data:
     - name: devopscube demo alert
       rules:
       - alert: ContainerHighCpuUtilization
-        expr: (sum(rate(container_cpu_usage_seconds_total{container!=""}[5m])) by (pod, container) / sum(container_spec_cpu_quota{container!=""}/container_spec_cpu_period{container!=""}) by (pod, container) * 100) > 70
+        expr: (sum(rate(container_cpu_usage_seconds_total{container!=""}[5m])) by (pod, container, namespace) / sum(container_spec_cpu_quota{container!=""}/container_spec_cpu_period{container!=""}) by (pod, container, namespace) * 100) > 68
         for: 2m
         labels:
           severity: slack
         annotations:
-          summary: Container High CPU utilization (instance {{ $labels.instance }})
-          description: "Container CPU utilization is above 70%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          summary: Container High CPU utilization (namespace {{ $labels.namespace }})
+          description: "Container CPU utilization is above 68%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
   prometheus.yml: |-
     global:
